@@ -13,7 +13,7 @@ import sys, time
 from common import *
 
 #---- Import Mini Python Game Engine -----
-MINI_PY_GE_DIR = "../minipyge"
+MINI_PY_GE_DIR = "../../minipyge"
 sys.path.append(MINI_PY_GE_DIR)
 from minipyge import *
 
