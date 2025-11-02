@@ -22,6 +22,7 @@ from common import *
 from girl import *
 from scene import *
 from ui_control import *
+from diamond import *
 
 class GameNode(MiniGNode):
   def __init__(self, name):
@@ -32,9 +33,11 @@ class GameNode(MiniGNode):
     self.scene.set_girl_position(self.girl.position)
     self.girl.setGameNode(self)
     self.girl_position = None # received via message
+    self.diamond_1 = Diamond("red", Vector2(PLAYER_INITIAL_X, PLAYER_INITIAL_Y))
 
     # set z_pos: lower number last to be render (on top)
     self.uicontrols.z_pos = 10
+    self.diamond_1.zpos = 15
     self.girl.z_pos = 20
     self.scene.z_pos = 30
 
