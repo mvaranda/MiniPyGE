@@ -33,7 +33,7 @@ GIRL_DIR = "./assets/girl/"
 GIRL_POS_OFFSET_X = 8
 GIRL_POS_OFFSET_Y = -60
 
-class Girl(MiniGNode):
+class Girl(MiniPyGENode):
   def __init__(self, name, position):
     super().__init__(name)
     self.position = position  # Vector2 position

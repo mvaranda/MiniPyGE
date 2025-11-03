@@ -7,6 +7,8 @@ DIAMOND_POS_OFFSET_Y = 0
 
 SCALE_DOWN = 8
 
+DIAMOND_ANIM_PERIOD = 1/18
+
 TEXTURE_PATH = "assets/blends/diamond-COLOR/diamond-COLORNNNN.png" # COLOR = either red, blue or yellow
                                                                    # NNNN from 0001 to 0017
 
@@ -15,7 +17,7 @@ MINI_PY_GE_DIR = "../../minipyge"
 sys.path.append(MINI_PY_GE_DIR)
 from minipyge import *
 
-class Diamond(MiniGNode):
+class Diamond(MiniPyGENode):
   diamond_n = 1
   textures_red = []
   textures_blue = []
@@ -36,11 +38,15 @@ class Diamond(MiniGNode):
     else:
       print("Bad color " + color)
       sys.exit(1)
+    
+    self.num_textures = 0
+    self.animation_timer = MiniGESingleTimer(DIAMOND_ANIM_PERIOD)
+    self.texture_idx = 0
 
 
   def load_diamond_textures(self, color, texture_list):
     if len(texture_list) > 0:
-      return # already loaded by other instance
+      return len(texture_list) # already loaded by other instance
 
     p = TEXTURE_PATH.replace("COLOR", color)
     for i in range(1, 18):
@@ -50,16 +56,24 @@ class Diamond(MiniGNode):
       img= load_image(pp)
       txt = load_texture_from_image(img)
       texture_list.append(txt)
+    len(texture_list)
 
 
   def on_draw_canvas(self, timestamp):
     pass
 
   def on_init(self):
-    self.load_diamond_textures(self.color, self.textures)
+    self.num_textures = self.load_diamond_textures(self.color, self.textures)
+
+  def on_slice(self, timestamp):
+    if self.animation_timer.has_expired() == True:
+      self.animation_timer.preset(DIAMOND_ANIM_PERIOD)
+      self.texture_idx += 1
+      if self.texture_idx >= len(self.textures):
+        self.texture_idx = 0
 
   def on_draw_2d(self, timestamp):
-    diamond_texture = self.textures[0]
+    diamond_texture = self.textures[self.texture_idx]
 
     diamond_source = Rectangle(0,0, diamond_texture.width, diamond_texture.height)
     diamond_dest = Rectangle( self.position.x + DIAMOND_POS_OFFSET_X, 

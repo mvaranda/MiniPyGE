@@ -24,7 +24,7 @@ from scene import *
 from ui_control import *
 from diamond import *
 
-class GameNode(MiniGNode):
+class GameNode(MiniPyGENode):
   def __init__(self, name):
     super().__init__(name)
     self.girl = Girl("girl", Vector2(PLAYER_INITIAL_X, PLAYER_INITIAL_Y))
@@ -34,6 +34,9 @@ class GameNode(MiniGNode):
     self.girl.setGameNode(self)
     self.girl_position = None # received via message
     self.diamond_1 = Diamond("red", Vector2(PLAYER_INITIAL_X, PLAYER_INITIAL_Y))
+    self.diamond_2 = Diamond("yellow", Vector2(PLAYER_INITIAL_X + 50, PLAYER_INITIAL_Y))
+    self.diamond_3 = Diamond("blue", Vector2(PLAYER_INITIAL_X + 100, PLAYER_INITIAL_Y))
+    self.diamond_4 = Diamond("red", Vector2(PLAYER_INITIAL_X + 150, PLAYER_INITIAL_Y))
 
     # set z_pos: lower number last to be render (on top)
     self.uicontrols.z_pos = 10

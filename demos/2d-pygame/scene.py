@@ -46,7 +46,7 @@ MOVING_BACKGROUND_FILENAME = "assets/bk-move-6400x960.png"
 GROUND_FILENAME = "assets/ground-01.png"
 
 
-class Scene(MiniGNode):
+class Scene(MiniPyGENode):
   def __init__(self, name):
     super().__init__(name)
     self.bg_texture = None

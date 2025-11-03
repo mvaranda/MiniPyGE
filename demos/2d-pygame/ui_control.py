@@ -7,7 +7,7 @@ MINI_PY_GE_DIR = "../../minipyge"
 sys.path.append(MINI_PY_GE_DIR)
 from minipyge import *
 
-class UIControls(MiniGNode):
+class UIControls(MiniPyGENode):
   def __init__(self):
     super().__init__("UIControls")
 

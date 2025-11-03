@@ -2,7 +2,7 @@
   MiniPyGE - Mini Python Game Engine
 
   Tiny set of classes and methods to make raylib based games organized.
-  The classes of the game can be derived from MiniGNode. Callbacks methods are
+  The classes of the game can be derived from MiniPyGENode. Callbacks methods are
   automatically called to perform basic operations like draw.
 
   License: GPL3
@@ -111,13 +111,13 @@ class privateNodeBase:
 
 
 
-class MiniGNode(privateNodeBase):
+class MiniPyGENode(privateNodeBase):
   """
-    MiniGNode is the class which all game classes should be derived from.
+    MiniPyGENode is the class which all game classes should be derived from.
   """
   def __init__(self, name):
     if name == None:
-      print("MiniGNode: Name must be provided")
+      print("MiniPyGENode: Name must be provided")
       sys.exit(1)
     super().__init__(name)
 
@@ -165,6 +165,22 @@ class MiniGNode(privateNodeBase):
       the first is the sent object and the second element is the sender.
     """
     pass
+
+class MiniGESingleTimer:
+  def __init__(self, duration):
+    self.acc_time = 0
+    self.expire_at =  self.acc_time + duration
+
+  def preset(self, duration):
+    self.acc_time = 0
+    self.expire_at =  self.acc_time + duration
+
+  def has_expired(self):
+    self.acc_time += get_frame_time()
+    if self.acc_time < self.expire_at:
+      return False
+    return True
+
 
 ##----------------- Functions -------------------
 
