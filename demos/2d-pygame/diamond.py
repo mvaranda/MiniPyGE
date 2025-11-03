@@ -43,7 +43,6 @@ class Diamond(MiniPyGENode):
     self.num_textures = 0
     self.animation_timer = MiniGESingleTimer(DIAMOND_ANIM_PERIOD)
     self.texture_idx = 0
-    self.tm_acc = 0
 
     # vertical delta motion
     self.pos_y = self.position.y
@@ -71,9 +70,6 @@ class Diamond(MiniPyGENode):
     len(texture_list)
 
 
-  def on_draw_canvas(self, timestamp):
-    pass
-
   def on_init(self):
     self.num_textures = self.load_diamond_textures(self.color, self.textures)
 
@@ -85,11 +81,11 @@ class Diamond(MiniPyGENode):
         self.texture_idx = 0
 
     ## vertical delta motion
-    self.tm_acc += timestamp
-    self.pos_y = self.position.y + m.sin(self.tm_acc * self.pos_y_speed) * self.pos_y_amplitude
+    tm_now = get_time()
+    self.pos_y = self.position.y + m.sin(tm_now * self.pos_y_speed) * self.pos_y_amplitude
 
     ## horizontal delta motion
-    self.pos_x = self.position.x + m.cos(self.tm_acc * self.pos_x_speed) * self.pos_y_amplitude
+    self.pos_x = self.position.x + m.cos(tm_now * self.pos_x_speed) * self.pos_y_amplitude
 
   def on_draw_2d(self, timestamp):
     diamond_texture = self.textures[self.texture_idx]

@@ -168,16 +168,15 @@ class MiniPyGENode(privateNodeBase):
 
 class MiniGESingleTimer:
   def __init__(self, duration):
-    self.acc_time = 0
-    self.expire_at =  self.acc_time + duration
+    self.start_time = get_time()
+    self.expire_at =  self.start_time + duration
 
   def preset(self, duration):
-    self.acc_time = 0
-    self.expire_at =  self.acc_time + duration
+    self.start_time = get_time()
+    self.expire_at =  self.start_time + duration
 
   def has_expired(self):
-    self.acc_time += get_frame_time()
-    if self.acc_time < self.expire_at:
+    if get_time() < self.expire_at:
       return False
     return True
 
