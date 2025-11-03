@@ -1,6 +1,7 @@
 import sys
 
 from common import *
+import math as m
 
 DIAMOND_POS_OFFSET_X = 0
 DIAMOND_POS_OFFSET_Y = 0
@@ -42,6 +43,17 @@ class Diamond(MiniPyGENode):
     self.num_textures = 0
     self.animation_timer = MiniGESingleTimer(DIAMOND_ANIM_PERIOD)
     self.texture_idx = 0
+    self.tm_acc = 0
+
+    # vertical delta motion
+    self.pos_y = self.position.y
+    self.pos_y_amplitude = 20
+    self.pos_y_speed = 6
+
+    # horizontal delta motion
+    self.pos_x = self.position.x
+    self.pos_x_amplitude = 20
+    self.pos_x_speed = 6
 
 
   def load_diamond_textures(self, color, texture_list):
@@ -72,18 +84,21 @@ class Diamond(MiniPyGENode):
       if self.texture_idx >= len(self.textures):
         self.texture_idx = 0
 
+    ## vertical delta motion
+    self.tm_acc += timestamp
+    self.pos_y = self.position.y + m.sin(self.tm_acc * self.pos_y_speed) * self.pos_y_amplitude
+
+    ## horizontal delta motion
+    self.pos_x = self.position.x + m.cos(self.tm_acc * self.pos_x_speed) * self.pos_y_amplitude
+
   def on_draw_2d(self, timestamp):
     diamond_texture = self.textures[self.texture_idx]
 
     diamond_source = Rectangle(0,0, diamond_texture.width, diamond_texture.height)
-    diamond_dest = Rectangle( self.position.x + DIAMOND_POS_OFFSET_X, 
-      self.position.y + DIAMOND_POS_OFFSET_Y, 
+    diamond_dest = Rectangle( self.pos_x + DIAMOND_POS_OFFSET_X, 
+      self.pos_y + DIAMOND_POS_OFFSET_Y, 
       diamond_texture.width/SCALE_DOWN, diamond_texture.height/SCALE_DOWN)
 
     diamond_ori = Vector2(diamond_texture.width/8, diamond_texture.height/8)
     draw_texture_pro(diamond_texture, diamond_source,  diamond_dest, diamond_ori, 0, WHITE)
 
-# def test():
-#   init_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Python game")
-#   set_target_fps(60)
-#   d = Diamond("blue", None)
