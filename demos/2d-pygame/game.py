@@ -7,7 +7,8 @@
  By: Marcelo Varanda
  Copyrights 2025 Varanda Labs Inc. 
 
- raylib API: https://electronstudio.github.io/raylib-python-cffi/pyray.html
+ raylib Python API: https://electronstudio.github.io/raylib-python-cffi/pyray.html
+             C API: https://electronstudio.github.io/raylib-python-cffi/raylib.html
 
 """
 
@@ -81,6 +82,10 @@ class GameNode(MiniPyGENode):
 
   def on_destroy(self):
     close_window()
+
+  def check_diamonds_collecting(self):
+    pass
+    #check_collision_recs
 
 if __name__ == "__main__":
   game = GameNode("Main-node")

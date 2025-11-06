@@ -6,7 +6,11 @@ import math as m
 DIAMOND_POS_OFFSET_X = 0
 DIAMOND_POS_OFFSET_Y = 0
 
+DIAMOND_BOX_ORI = [116, 120, 293, 265] # original sizes: x,y,w,h
+
+
 SCALE_DOWN = 8
+
 
 DIAMOND_ANIM_PERIOD = 1/18
 
@@ -17,6 +21,11 @@ TEXTURE_PATH = "assets/blends/diamond-COLOR/diamond-COLORNNNN.png" # COLOR = eit
 MINI_PY_GE_DIR = "../../minipyge"
 sys.path.append(MINI_PY_GE_DIR)
 from minipyge import *
+
+DIAMOND_BOX = Rectangle(  DIAMOND_BOX_ORI[0]/SCALE_DOWN, 
+                          DIAMOND_BOX_ORI[1]/SCALE_DOWN, 
+                          DIAMOND_BOX_ORI[2]/SCALE_DOWN,
+                          DIAMOND_BOX_ORI[3]/SCALE_DOWN)
 
 class Diamond(MiniPyGENode):
   diamond_n = 1

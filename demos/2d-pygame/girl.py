@@ -132,7 +132,7 @@ class Girl(MiniPyGENode):
     else:
       self.canJump = True
 
-    self.send_message(self.game_node, self.position, self) 
+    self.send_message(self.game_node, self.position, self)
 
   def animate_girl(self):
     delta = get_frame_time()
