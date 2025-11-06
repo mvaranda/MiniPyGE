@@ -9,7 +9,7 @@ DIAMOND_POS_OFFSET_Y = 0
 DIAMOND_BOX_ORI = [116, 120, 293, 265] # original sizes: x,y,w,h
 
 
-SCALE_DOWN = 8
+DIAMOND_SCALE = 1/8
 
 
 DIAMOND_ANIM_PERIOD = 1/18
@@ -22,10 +22,10 @@ MINI_PY_GE_DIR = "../../minipyge"
 sys.path.append(MINI_PY_GE_DIR)
 from minipyge import *
 
-DIAMOND_BOX = Rectangle(  DIAMOND_BOX_ORI[0]/SCALE_DOWN, 
-                          DIAMOND_BOX_ORI[1]/SCALE_DOWN, 
-                          DIAMOND_BOX_ORI[2]/SCALE_DOWN,
-                          DIAMOND_BOX_ORI[3]/SCALE_DOWN)
+DIAMOND_BOX = Rectangle(  DIAMOND_BOX_ORI[0] * DIAMOND_SCALE, 
+                          DIAMOND_BOX_ORI[1] * DIAMOND_SCALE, 
+                          DIAMOND_BOX_ORI[2] * DIAMOND_SCALE,
+                          DIAMOND_BOX_ORI[3] * DIAMOND_SCALE)
 
 class Diamond(MiniPyGENode):
   diamond_n = 1
@@ -102,7 +102,7 @@ class Diamond(MiniPyGENode):
     diamond_source = Rectangle(0,0, diamond_texture.width, diamond_texture.height)
     diamond_dest = Rectangle( self.pos_x + DIAMOND_POS_OFFSET_X, 
       self.pos_y + DIAMOND_POS_OFFSET_Y, 
-      diamond_texture.width/SCALE_DOWN, diamond_texture.height/SCALE_DOWN)
+      diamond_texture.width * DIAMOND_SCALE, diamond_texture.height * DIAMOND_SCALE)
 
     diamond_ori = Vector2(diamond_texture.width/8, diamond_texture.height/8)
     draw_texture_pro(diamond_texture, diamond_source,  diamond_dest, diamond_ori, 0, WHITE)

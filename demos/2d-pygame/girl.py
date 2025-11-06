@@ -12,6 +12,8 @@
 import sys, time
 from common import *
 
+GIRL_SCALE = 1/4
+
 #---- Import Mini Python Game Engine -----
 MINI_PY_GE_DIR = "../../minipyge"
 sys.path.append(MINI_PY_GE_DIR)
@@ -176,7 +178,7 @@ class Girl(MiniPyGENode):
     girl_source = Rectangle(0,0, girl_texture.width, girl_texture.height)
     girl_dest = Rectangle( self.position.x + GIRL_POS_OFFSET_X, 
       self.position.y + GIRL_POS_OFFSET_Y, 
-      girl_texture.width/4, girl_texture.height/4)
+      girl_texture.width * GIRL_SCALE, girl_texture.height * GIRL_SCALE)
 
     girl_ori = Vector2(girl_texture.width/8, girl_texture.height/8)
     draw_texture_pro(girl_texture, girl_source,  girl_dest, girl_ori, 0, WHITE)
